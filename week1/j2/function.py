@@ -39,22 +39,42 @@
 
 # Functions can be stored in data structures
 
-def caesar_encrypt(s, n=7):
-    s = list(s)
-    n %= 26
-    for i in range(len(s)):
-        s[i] = chr(((ord(s[i]) - 97 + n) % 26) + 97)
-    s = ''.join(s)
+# def caesar_encrypt(s, n=7):
 
-    return s
+#     """
+#     This function encrypts a string by shifting each character by n places in the alphabet.
+#     """
+#     s = list(s)
+#     n %= 26
+#     for i in range(len(s)):
+#         s[i] = chr(((ord(s[i]) - 97 + n) % 26) + 97)
+#     s = ''.join(s)
 
+#     return s
 
-def caesar_decrypt(s, n=7):
-    return caesar_encrypt(s, 26 - (n % 26))
+# def caesar_decrypt(s, n=7):
 
+#     """
+#     This function decrypts a string by shifting each character by 26 - n places in the alphabet.
+#     """
+#     return caesar_encrypt(s, 26 - (n % 26))
+
+# # def reversed_string(s):
+# #     return s[::1]
+
+# # def make_uppercases(s):
+# #     return s.upper()
+
+# s = "hello"
+# print(type(s))
+# print(s.upper())
+# print(s.lower())
+# print(s.capitalize())
 
 # funcs = [
 #     caesar_encrypt,
+#     # reversed_string,
+#     # make_uppercases,
 #     lambda s: s[::-1],
 #     str.upper,
 # ]
@@ -64,6 +84,8 @@ def caesar_decrypt(s, n=7):
 #     s = func(s)
 # print(s)
 # print(type(s))
+
+#this function uses packing to sum
 
 # def mySum(*args):
 #     print(args)
@@ -119,7 +141,4 @@ def caesar_decrypt(s, n=7):
 
 # print(g('hello'))
 
-# Inner functions can also capture and
-# carry some of the parent function’s state with them
 
-# Objects can behave like functions
