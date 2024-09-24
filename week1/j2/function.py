@@ -133,12 +133,10 @@
 
 # Functions can be nested
 
-# def f(text):
-#     def g():
-#         return text[::-1]
+def f(text):
+    def g():
+        return text[::-1]
 
-#     return g().upper()
+    return g().upper()
 
-# print(g('hello'))
-
-
+print(f('hello'))
