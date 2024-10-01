@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.11'
 services:
   backend:
     build: .
@@ -8,6 +8,8 @@ services:
       - ./core:/app
     ports:
       - "8000:8000"
-    # environment:
-    #   - SECRET_KEY=test
-    #   - DEBUG=True
+    environment:
+      - SECRET_KEY=test
+      - DEBUG=True
+      - ALLOWED_HOSTS=localhost,127.0.0.1
+
