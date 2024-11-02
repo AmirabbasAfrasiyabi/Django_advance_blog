@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseUserManager
 from django.db import models
 from django.contrib.auth.models import Group, Permission
-
+from django.utils import timezone
 class UserManager(BaseUserManager):
     """
     Custom user model manager where email is the unique identifiers
@@ -39,10 +39,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     first_name = models.CharField(max_length=20)
     REQUIRED_FIELDS = []
-
+    published_date = models.DateTimeField(default=timezone.now)  # یا هر تاریخ دلخواه به عنوان مقدار پیش‌فرض
     created_date = models.DateTimeField(auto_now_add=True)
     updated_date = models.DateTimeField(auto_now=True)
-    published_date = models.DateTimeField()
 
     # افزودن related_name به groups و user_permissions
     groups = models.ManyToManyField(
