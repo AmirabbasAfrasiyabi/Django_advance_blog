@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from .models import Post
 from django.views.generic.base import RedirectView
-
+from django.views.generic import ListView
 # Create your views here.
 
 # fbv Show a Template
@@ -49,3 +49,27 @@ class RedirectToLinkedIn(RedirectView):
     """
 
     url = "https://linkedin.com/in/amirabbas-afrasiyabi-a6a230259/"
+
+
+# cbv for list
+
+class PostList(ListView):
+
+    """
+    the class base views to show all posts
+    """
+    # models1
+    # queryset = Post.objects.all()
+
+    # models2
+    # model = Post
+
+    # same for all three models
+    template_name = "blog/post_list.html"
+    context_object_name = "posts"
+    paginate_by = 5  # Set the number of posts to show per page.
+   
+    #models3
+    def get_queryset(self):
+        posts = Post.objects.filter(status=True)
+        return posts

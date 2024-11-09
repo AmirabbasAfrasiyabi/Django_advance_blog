@@ -9,5 +9,6 @@ urlpatterns = [
     # path("fbv_index" , views.indexView,name='fbv_index'),
     # path("cbv_index", TemplateView.as_view(template_name="index.html",)),
     path("cbv_index" , views.HomePageView.as_view(),name='cbv_index'),
+    path("post/", views.PostList.as_view(), name="Post-list"),
     path("go-to-LinkedIn/" , views.RedirectToLinkedIn.as_view(),name='redirect to LinkedIn Page'),
 ]
