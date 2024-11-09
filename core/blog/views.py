@@ -62,14 +62,16 @@ class PostList(ListView):
     # queryset = Post.objects.all()
 
     # models2
-    # model = Post
+    model = Post
 
     # same for all three models
     template_name = "blog/post_list.html"
     context_object_name = "posts"
-    paginate_by = 5  # Set the number of posts to show per page.
-   
+    paginate_by = 2  # Set the number of posts to show per page.
+    ordering = "-published_date"  # Set the order of posts to be displayed. You can also use "-created_date" or any other field.
+    queryset = Post.objects.filter(status=True)  # Filter posts to only show published ones. You can also use "-created_date" or any other field.
+    
     #models3
-    def get_queryset(self):
-        posts = Post.objects.filter(status=True)
-        return posts
+    # def get_queryset(self):
+    #     posts = Post.objects.filter(status=True)
+    #     return posts

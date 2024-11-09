@@ -6,24 +6,37 @@
     <title>index</title>
 </head>
 <body>
-    <h1>index</h1>
-    <p>{{name}}</p>
     
-    <h2>Posts</h2>
+    <h2>blog post</h2>
     {% if posts %}
         <ul>
             {% for post in posts %}
                 <li>
                     <h3>{{ post.title }}</h3>
-                    <p>{{ post.content }}</p>
-                    <p>Author: {{ post.author }}</p>
-                    <p>Published on: {{ post.published_date }}</p>
+                    <small>{{ post.author }} - {{ post.published_date }} </small>
                 </li>
             {% endfor %}
         </ul>
     {% else %}
         <p>No posts available.</p>
     {% endif %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+            {% endif %}
+    
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+            </span>
+    
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
 
 </body>
 </html>
