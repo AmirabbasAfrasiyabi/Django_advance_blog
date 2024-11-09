@@ -6,13 +6,14 @@ from .models import Post
 
 def indexView(request):
     name = 'ali' 
-    context = {"name": name}
-    return render(request, 'index.html',context)
+    posts = Post.objects.all()
+    context = {"name": name, "posts": posts}
+    return render(request, 'index.html', context)
+
 
 class HomePageView(TemplateView):
     template_name = "index.html"
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["name"] = 'ali'
-        context["posts"] = Post.objects.all()
         return context
