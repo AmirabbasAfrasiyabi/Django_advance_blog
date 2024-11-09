@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from .models import Post
 from django.views.generic.base import RedirectView
-from django.views.generic import ListView
+from django.views.generic import ListView , DetailView
 # Create your views here.
 
 # fbv Show a Template
@@ -75,3 +75,9 @@ class PostList(ListView):
     # def get_queryset(self):
     #     posts = Post.objects.filter(status=True)
     #     return posts
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = "blog/post_detail.html"
+    context_object_name = "post"
+    

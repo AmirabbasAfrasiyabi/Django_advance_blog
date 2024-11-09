@@ -11,4 +11,5 @@ urlpatterns = [
     path("cbv_index" , views.HomePageView.as_view(),name='cbv_index'),
     path("post/", views.PostList.as_view(), name="Post-list"),
     path("go-to-LinkedIn/" , views.RedirectToLinkedIn.as_view(),name='redirect to LinkedIn Page'),
+    path("post/<int:pk>", views.PostDetailView.as_view(),name='post_detail'),
 ]
