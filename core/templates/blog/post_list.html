@@ -13,6 +13,13 @@
             {% for post in posts %}
                 <li>
                     <a href="{% url 'blog:post_detail' pk=post.id %}"><h3>{{post.id}} - {{ post.title }}</h3></a>
+                    <a href="{% url 'blog:post_edit' pk=post.id %}">
+                        <h5>edit</h5>
+                    </a>
+
+                    <a href="{% url 'blog:post_delete' pk=post.id %}">
+                        <h5>delete</h5>
+                    </a>
                     <small>{{ post.author }} - {{ post.published_date }} </small>
                 </li>
             {% endfor %}

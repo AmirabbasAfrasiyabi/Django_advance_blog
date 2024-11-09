@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from .models import Post
 from django.views.generic.base import RedirectView
-from django.views.generic import ListView , DetailView , FormView , CreateView
+from django.views.generic import ListView , DetailView , FormView , CreateView , UpdateView , DeleteView
 from .forms import PostForm
 # Create your views here.
 
@@ -103,3 +103,12 @@ class PostCreateView(CreateView):
         form.instance.author = self.request.user
         return super().form_valid(form)
     
+
+class PostEditView(UpdateView):
+    model = Post
+    form_class = PostForm
+    success_url = '/blog/post/'
+
+class PostDeleteView(DeleteView):
+    model = Post
+    success_url = '/blog/post/'
