@@ -8,8 +8,7 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = ('title', 'content')
     ordering = ('published_date',)
     date_hierarchy = 'published_date'
-    raw_id_fields = ('category',)  # اضافه کردن این خط برای انتخاب آسان‌تر دسته‌بندی‌ها
-
+    raw_id_fields = ('category',) 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('num',)

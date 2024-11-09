@@ -1,8 +1,13 @@
 from django.urls import path
-from django.views.generic import TemplateView
 from . import views
+from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
+
+app_name = "blog"
+
 urlpatterns = [
-    path("fbv_index" , views.indexView,name='fbv_index'),
+    # path("fbv_index" , views.indexView,name='fbv_index'),
     # path("cbv_index", TemplateView.as_view(template_name="index.html",)),
     path("cbv_index" , views.HomePageView.as_view(),name='cbv_index'),
+    path("go-to-LinkedIn/" , views.RedirectToLinkedIn.as_view(),name='redirect to LinkedIn Page'),
 ]
