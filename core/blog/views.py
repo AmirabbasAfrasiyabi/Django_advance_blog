@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.views.generic.base import TemplateView
 from .models import Post
 from django.views.generic.base import RedirectView
-from django.views.generic import ListView , DetailView
+from django.views.generic import ListView , DetailView , FormView
+from .forms import PostForm
 # Create your views here.
 
 # fbv Show a Template
@@ -80,4 +81,12 @@ class PostDetailView(DetailView):
     model = Post
     template_name = "blog/post_detail.html"
     context_object_name = "post"
-    
+
+class PostCreateView(FormView):
+    template_name = "contact.html"
+    form_class = PostForm
+    success_url = '/blog/post/'
+
+    def form_valid(self, form):
+        form.save()
+        return super().form_valid(form)

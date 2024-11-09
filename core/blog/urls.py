@@ -12,4 +12,5 @@ urlpatterns = [
     path("post/", views.PostList.as_view(), name="Post-list"),
     path("go-to-LinkedIn/" , views.RedirectToLinkedIn.as_view(),name='redirect to LinkedIn Page'),
     path("post/<int:pk>", views.PostDetailView.as_view(),name='post_detail'),
-]
+    path("post/create/", views.PostCreateView.as_view(),name='post_create'),
+]   
