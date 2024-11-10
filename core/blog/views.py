@@ -4,6 +4,7 @@ from .models import Post
 from django.views.generic.base import RedirectView
 from django.views.generic import ListView , DetailView , FormView , CreateView , UpdateView , DeleteView
 from .forms import PostForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
 # fbv Show a Template
@@ -54,7 +55,7 @@ class RedirectToLinkedIn(RedirectView):
 
 # cbv for list
 
-class PostList(ListView):
+class PostList(LoginRequiredMixin,ListView):
 
     """
     the class base views to show all posts
