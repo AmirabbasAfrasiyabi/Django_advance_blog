@@ -6,8 +6,7 @@ from django.views.generic import ListView , DetailView , FormView , CreateView ,
 from .forms import PostForm
 from django.contrib.auth.mixins import LoginRequiredMixin , PermissionRequiredMixin
 from django.http import HttpResponse
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
+
 # Create your views here.
 
 # fbv Show a Template
@@ -119,7 +118,3 @@ class PostDeleteView(DeleteView):
     success_url = '/blog/post/'
 
 
-@api_view()
-
-def APIPostList(request):
-    return Response({"name" : "ali"})
