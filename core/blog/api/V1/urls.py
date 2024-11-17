@@ -7,4 +7,5 @@ app_name = "api_V1"
 
 urlpatterns = [
     path("post/", views.PostList ,name="Post-list"), 
+    path("post/<int:id>/", views.PostDetail ,name="Post-list"),
 ]
