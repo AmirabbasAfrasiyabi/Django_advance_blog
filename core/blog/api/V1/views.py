@@ -15,7 +15,7 @@ def PostList(request):
         return Response(serializer.data)
     elif request.method =="POST":
         Serializer = PostSerializer(data = request.data)
-        Serializer.is_valid(raise_exception=True):
+        Serializer.is_valid(raise_exception=True)
         Serializer.save()
         return Response (Serializer.data)
 
