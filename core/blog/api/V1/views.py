@@ -11,16 +11,27 @@ from django.shortcuts import get_object_or_404
 def PostList(request):
     if request.method =="GET":
         posts = Post.objects.filter(status=True)
-        serializer = PostSerializer(posts,many=True)
-        return Response(serializer.data)
+        Serializer = PostSerializer(posts,many=True)
+        return Response(Serializer.data)
     elif request.method =="POST":
         Serializer = PostSerializer(data = request.data)
         Serializer.is_valid(raise_exception=True)
         Serializer.save()
         return Response (Serializer.data)
+    
 
-@api_view()
+@api_view(["PUT","GET","DELETE"])
 def PostDetail(request,id):
     post = get_object_or_404(Post,pk=id,status=True)
-    Serializer = PostSerializer(post)
-    return Response(Serializer.data)
+    if request.method =="GET":
+        Serializer = PostSerializer(post)
+        return Response(Serializer.data)
+    elif request.method =="PUT":
+        Serializer = PostSerializer(post,data=request.data)
+        Serializer.is_valid(raise_exception=True)
+        Serializer.save()
+        return Response (Serializer.data)
+
+    elif request.method =="DELETE":
+        post.delete()
+        return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)
