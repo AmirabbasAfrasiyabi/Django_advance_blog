@@ -1,4 +1,5 @@
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view,permission_classes
+from rest_framework.permissions import IsAuthenticatedOrReadOnly,IsAdminUser,IsAuthenticated
 from rest_framework.response import Response
 from .serializers import PostSerializer
 from blog.models import Post
@@ -8,6 +9,7 @@ from django.shortcuts import get_object_or_404
 
 
 @api_view(["POST","GET"])
+@permission_classes([IsAuthenticated])
 def PostList(request):
     if request.method =="GET":
         posts = Post.objects.filter(status=True)
@@ -21,6 +23,7 @@ def PostList(request):
     
 
 @api_view(["PUT","GET","DELETE"])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def PostDetail(request,id):
     post = get_object_or_404(Post,pk=id,status=True)
     if request.method =="GET":
