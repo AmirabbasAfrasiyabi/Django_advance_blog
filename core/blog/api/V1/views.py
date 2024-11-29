@@ -7,7 +7,7 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import authentication, permissions
-from rest_framework.generics import CreateAPIView , ListAPIView  , RetrieveAPIView ,GenericAPIView , ListCreateAPIView
+from rest_framework.generics import CreateAPIView , ListAPIView  , RetrieveAPIView ,GenericAPIView , ListCreateAPIView ,RetrieveUpdateAPIView , RetrieveUpdateDestroyAPIView
 from rest_framework import mixins
 
 
@@ -122,20 +122,8 @@ class PostDetail(APIView):
 
 '''write with GenericAPIView for PostDetail'''
 
-class PostDetail(GenericAPIView,mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin):
+class PostDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
     queryset = Post.objects.filter(status=True)
-
-    """retrieving the post data"""
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-    
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
-    
-
 
