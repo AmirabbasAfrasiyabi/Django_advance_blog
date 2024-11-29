@@ -5,23 +5,45 @@ from .serializers import PostSerializer
 from blog.models import Post
 from rest_framework import status
 from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
 
 
+# @api_view(["POST","GET"])
+# @permission_classes([IsAuthenticated])
+# def PostList(request):
+#     if request.method =="GET":
+#         posts = Post.objects.filter(status=True)
+#         Serializer = PostSerializer(posts,many=True)
+#         return Response(Serializer.data)
+#     elif request.method =="POST":
+#         Serializer = PostSerializer(data = request.data)
+#         Serializer.is_valid(raise_exception=True)
+#         Serializer.save()
+#         return Response (Serializer.data)
+    
+class PostList(APIView):
 
-@api_view(["POST","GET"])
-@permission_classes([IsAuthenticated])
-def PostList(request):
-    if request.method =="GET":
+    """getting a list of post and creating a new post"""
+    def get(self, request):
+
+        """
+        Return a list of all users.
+        """
         posts = Post.objects.filter(status=True)
         Serializer = PostSerializer(posts,many=True)
         return Response(Serializer.data)
-    elif request.method =="POST":
+    
+    """retrieving a list of post"""
+    def Post(self, request):
+
+        """
+        created a post with provided.
+        """
         Serializer = PostSerializer(data = request.data)
         Serializer.is_valid(raise_exception=True)
         Serializer.save()
         return Response (Serializer.data)
-    
-
+        
 @api_view(["PUT","GET","DELETE"])
 @permission_classes([IsAuthenticatedOrReadOnly])
 def PostDetail(request,id):
