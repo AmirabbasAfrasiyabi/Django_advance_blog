@@ -7,22 +7,30 @@ from rest_framework import status
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import authentication, permissions
+from rest_framework.generics import CreateAPIView , ListAPIView  , RetrieveAPIView ,GenericAPIView , ListCreateAPIView
+from rest_framework import mixins
 
 
-# @api_view(["POST","GET"])
-# @permission_classes([IsAuthenticated])
-# def PostList(request):
-#     if request.method =="GET":
-#         posts = Post.objects.filter(status=True)
-#         Serializer = PostSerializer(posts,many=True)
-#         return Response(Serializer.data)
-#     elif request.method =="POST":
-#         Serializer = PostSerializer(data = request.data)
-#         Serializer.is_valid(raise_exception=True)
-#         Serializer.save()
-#         return Response (Serializer.data)
+'''fbv for PostList'''
+'''
+@api_view(["POST","GET"])
+@permission_classes([IsAuthenticated])
+def PostList(request):
+    if request.method =="GET":
+        posts = Post.objects.filter(status=True)
+        Serializer = PostSerializer(posts,many=True)
+        return Response(Serializer.data)
+    elif request.method =="POST":
+        Serializer = PostSerializer(data = request.data)
+        Serializer.is_valid(raise_exception=True)
+        Serializer.save()
+        return Response (Serializer.data)
 
-    
+
+'''
+
+'''write with apiView'''
+'''
 class PostList(APIView):
 
     permission_classes = [IsAuthenticatedOrReadOnly]
@@ -51,26 +59,42 @@ class PostList(APIView):
         Serializer.save()
         return Response (Serializer.data)
     
-    
+'''    
+
+'''write with GenericAPIView'''
         
-# @api_view(["PUT","GET","DELETE"])
-# @permission_classes([IsAuthenticatedOrReadOnly])
-# def PostDetail(request,id):
-#     post = get_object_or_404(Post,pk=id,status=True)
-#     if request.method =="GET":
-#         Serializer = PostSerializer(post)
-#         return Response(Serializer.data)
-#     elif request.method =="PUT":
-#         Serializer = PostSerializer(post,data=request.data)
-#         Serializer.is_valid(raise_exception=True)
-#         Serializer.save()
-#         return Response (Serializer.data)
+class PostList(ListCreateAPIView):
 
-#     elif request.method =="DELETE":
-#         post.delete()
-#         return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = PostSerializer
+    queryset = Post.objects.filter(status=True)
+
+
+
+
+'''fbv for PostDetail'''
+'''
+@api_view(["PUT","GET","DELETE"])
+@permission_classes([IsAuthenticatedOrReadOnly])
+def PostDetail(request,id):
+    post = get_object_or_404(Post,pk=id,status=True)
+    if request.method =="GET":
+        Serializer = PostSerializer(post)
+        return Response(Serializer.data)
+    elif request.method =="PUT":
+        Serializer = PostSerializer(post,data=request.data)
+        Serializer.is_valid(raise_exception=True)
+        Serializer.save()
+        return Response (Serializer.data)
+
+    elif request.method =="DELETE":
+        post.delete()
+        return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)
     
+'''
 
+'''Write with apiView'''
+'''
 class PostDetail(APIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     serializer_class = PostSerializer
@@ -94,3 +118,24 @@ class PostDetail(APIView):
         post = get_object_or_404(Post,pk=id,status=True)
         post.delete()
         return Response({"detail":"Item removed successfully"},status=status.HTTP_204_NO_CONTENT)
+'''
+
+'''write with GenericAPIView for PostDetail'''
+
+class PostDetail(GenericAPIView,mixins.RetrieveModelMixin,mixins.UpdateModelMixin,mixins.DestroyModelMixin):
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    serializer_class = PostSerializer
+    queryset = Post.objects.filter(status=True)
+
+    """retrieving the post data"""
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+    
+
+
